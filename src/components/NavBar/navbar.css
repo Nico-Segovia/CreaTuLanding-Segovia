@@ -1,0 +1,53 @@
+.navbar {
+    border-bottom: 1px solid var(--accent-darken);
+    background-color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: none;
+}
+
+.buscar {
+    background-color: var(--accent);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buscar:hover {
+    background-color: var(--accent-darken);
+}
+
+.buscar:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.nav-link {
+    color: var(--accent-darken);
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+/* Estilo para el formulario de búsqueda */
+.form-control {
+    border: 1px solid var(--accent-darken);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-right: 10px;
+}
+
+/* Variables de color para mayor consistencia y facilidad de ajuste */
+:root {
+    --accent: #007bff;
+    --accent-darken: #0056b3;
+}

@@ -1,0 +1,1 @@
+.navbar{border-bottom:1px solid var(--accent-darken)}.buscar{background-color:var(--accent);border:none}.buscar:hover{background-color:var(--accent-darken)}:root{--text: #ebe9fc;--background: #010104;--primary: #3a31d8;--secondary: #020024;--accent: #0600c2;--accent-darken:#0600c2c4}body{background-color:#010104;color:var(--text)}
