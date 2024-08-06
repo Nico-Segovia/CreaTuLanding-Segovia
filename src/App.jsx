@@ -1,15 +1,29 @@
-import './App.css'
-import React from 'react'
-import NavBar from './components/NavBar/NavBar'
-import ItemListContainer from './components/ItemListContainer/ItemListContainer'
+import React, { Fragment } from 'react'; 
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import ContactForm from './components/ContactForm/ContactForm';
+import About from './components/About/About';
+import Home from './components/Home/Home';
+import NavBar from './components/NavBar/NavBar'; 
 
-const App = () => {
+function App() {
+
+  // Comentario para indicar el uso de React (solución alternativa)
+  React.createElement('div'); 
+
   return (
-    <>
-    <NavBar/>
-    <ItemListContainer titulo={"Lorem Ipsum"}/>
-    </>
-  )
+    <Fragment> 
+      <BrowserRouter>
+        <NavBar /> 
+        <Routes>
+          <Route path="/" element={<Home />} /> 
+          <Route path="/contacto" element={<ContactForm />} /> 
+          <Route path="/about" element={<About />} /> 
+          {/* ... otras rutas que necesites ... */} 
+        </Routes>
+        <Outlet /> 
+      </BrowserRouter>
+    </Fragment>
+  );
 }
 
-export default App
+export default App;

@@ -1,16 +1,15 @@
-import React from 'react'
-import { TiShoppingCart } from 'react-icons/ti'
-import { CgBell } from "react-icons/cg";
-const CartWidget = () => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart, faBell } from '@fortawesome/free-solid-svg-icons';
+import './CartWidget.css';
+
+function CartWidget() {
   return (
-    <div className='d-flex align-items-center mx-2'>
-      <span>0</span>
-      <div className='d-flex'>
-        <TiShoppingCart style={{ fontSize: '24px' }} />
-        <CgBell style={{ fontSize: '24px' }}/>
-      </div>
+    <div className="cart-widget">
+      <FontAwesomeIcon icon={faShoppingCart} className="text-white" /> 
+      <span className="cart-count">0</span> 
+      <FontAwesomeIcon icon={faBell} className="text-white" /> 
     </div>
-  )
+  );
 }
 
-export default CartWidget
+export default CartWidget;

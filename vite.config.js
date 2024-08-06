@@ -1,8 +1,16 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  base:'/CreaTuLanding-Segovia',
   plugins: [react()],
-})
+  server: {
+    hmr: {
+      overlay: false 
+    }
+  },
+  csp: {
+    directives: {
+      'script-src': ["'self'", "'unsafe-inline'"] 
+    }
+  }
+});

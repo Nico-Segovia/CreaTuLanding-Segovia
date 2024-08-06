@@ -1,0 +1,32 @@
+.about-section {
+    background-color: #282c34;
+    color: #fff;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .about-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .about-section p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .about-section {
+    border: 1px solid #333;
+    border-radius: 10px;
+  }
+  
+  /* .about-section {
+    background-image: url('/images/fondo-videojuegos.jpg');
+    background-size: cover;
+    background-position: center;
+  } */
+  
+  .about-section {
+    background-attachment: fixed;
+  }
+  
