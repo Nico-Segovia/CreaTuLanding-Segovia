@@ -13,7 +13,6 @@ import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 function NavBar() {
-  // Solución para el error de ESLint
   React.createElement('div');
 
   return (
@@ -22,7 +21,7 @@ function NavBar() {
         <Navbar key={expand} expand={expand} className="mb-3 navbar" data-bs-theme="light">
           <Container>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Navbar.Brand as={Link} to="/"> 
+            <Navbar.Brand as={Link} to="/">
               <FontAwesomeIcon icon={faGamepad} /> Bizarro Steam
             </Navbar.Brand>
             <Navbar.Offcanvas
@@ -40,14 +39,24 @@ function NavBar() {
                   <Link to="/" className="nav-link">
                     Inicio
                   </Link>
+                  <NavDropdown title="Catálogo" id={`offcanvasNavbarDropdown-expand-${expand}`}>
+                    <NavDropdown.Item as={Link} to="/catalogo">
+                      Todos los juegos
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/catalogo?categoria=Plataforma">
+                      Plataforma
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/catalogo?categoria=Acción">
+                      Acción
+                    </NavDropdown.Item>
+                    {/* Agrega más opciones según tus categorías */}
+                  </NavDropdown>
                   <Link to="/contacto" className="nav-link">
                     Contacto
                   </Link>
                   <Link to="/about" className="nav-link"> 
                     Nosotros
                   </Link>
-                  <NavDropdown title="Catálogo" id={`offcanvasNavbarDropdown-expand-${expand}`}>
-                  </NavDropdown>
                 </Nav>
                 <Form className="d-flex">
                   <Form.Control

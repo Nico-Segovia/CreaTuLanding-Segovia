@@ -1,7 +1,16 @@
 import React, { Fragment, useState, useRef } from 'react';
 import './ContactForm.css';
-import emailjs from '@emailjs/browser'; // Eliminamos la importación de Link
 
+let emailjs;
+
+import('/node_modules/@emailjs/browser/es/index.js')
+  .then((module) => {
+    emailjs = module;
+  })
+  .catch((error) => {
+    console.error('Error al cargar EmailJS:', error);
+    alert('Hubo un problema al cargar el formulario. Por favor, inténtalo de nuevo más tarde.');
+  });
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -13,8 +22,7 @@ function ContactForm() {
   const form = useRef();
   const [formStatus, setFormStatus] = useState(null);
 
-  // Solución para el error de ESLint
-  React.createElement('div'); // <-- Esta línea soluciona el error
+  React.createElement('div'); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,6 +30,12 @@ function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!emailjs) {
+      console.error('EmailJS no está cargado aún');
+      alert('El formulario no está listo todavía. Por favor, espera un momento e inténtalo de nuevo.');
+      return; 
+    }
 
     try {
       const result = await emailjs.sendForm(
@@ -32,7 +46,7 @@ function ContactForm() {
       );
       console.log(result.text);
       setFormStatus('success');
-      setFormData({ name: '', email: '', message: '' }); // Limpia el formulario después del envío
+      setFormData({ name: '', email: '', message: '' }); 
     } catch (error) {
       console.error(error.text);
       setFormStatus('error');
@@ -40,23 +54,21 @@ function ContactForm() {
   };
 
   return (
-    <Fragment> 
+    <Fragment>
       <form ref={form} onSubmit={handleSubmit} className="contact-form">
-      <div>
-    <label htmlFor="name">Nombre:</label>
-    <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required /> 
-  </div>
-  <div>
-    <label htmlFor="email">Email:</label> 
-
-    <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required /> 
-  </div>
-  <div>
-    <label htmlFor="message">Mensaje:</label>
-
-    <textarea id="message" name="message" value={formData.message} onChange={handleChange} required /> 
-  </div>
-  <button type="submit">Enviar</button>
+        <div>
+          <label htmlFor="name">Nombre:</label>
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label> 
+          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+        </div>
+        <div>
+          <label htmlFor="message">Mensaje:</label>
+          <textarea id="message" name="message" value={formData.message} onChange={handleChange} required />
+        </div>
+        <button type="submit">Enviar</button>
       </form>
 
       {formStatus === 'success' && (
