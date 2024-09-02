@@ -2,6 +2,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemDetail from './ItemDetail';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
 function ItemDetailContainer() {
   const { id } = useParams();
@@ -11,30 +13,22 @@ function ItemDetailContainer() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Simulo demora de consulta
-        await new Promise(resolve => setTimeout(resolve, 10));
+        const docRef = doc(db, 'juegos', id);
+        const docSnap = await getDoc(docRef);
 
-        // Simulo una lista de juegos
-        const gamesData = [
-          { id: 1, title: 'Super Mario Bros.', description: 'Un juego de plataformas clásico donde Mario debe rescatar a la Princesa Peach.', image: '/images/imagen1.jpg', price: 19.99, stock: 10 },
-          { id: 2, title: 'Doom', description: 'Un juego de disparos en primera persona clásico.', image: '/images/imagen2.jpg', price: 24.99, stock: 5 }
-        ];
-
-        const gameData = gamesData.find(game => game.id === parseInt(id));
-
-        if (gameData) {
-          setGame(gameData);
+        if (docSnap.exists()) {
+          setGame({ ...docSnap.data(), id: docSnap.id });
         } else {
-          console.error('Juego no encontrado');
+          console.error('No such document!');
         }
 
         setLoading(false);
       } catch (error) {
-        console.error('Error al cargar los detalles del juego:', error);
+        console.error('Error al cargar los detalles del juego desde Firestore:', error);
       }
     };
 
-    fetchData();
+    fetchData(); // Llama a fetchData una sola vez dentro del useEffect
   }, [id]); 
 
   return (

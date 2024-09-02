@@ -2,7 +2,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ItemList from './ItemList';
-import './ItemListContainer.css'; // Importa el CSS
+import './ItemListContainer.css';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
 function ItemListContainer() {
   const [games, setGames] = useState([]);
@@ -20,23 +22,21 @@ function ItemListContainer() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await new Promise(resolve => setTimeout(resolve, 10));
+        const gamesCollection = collection(db, 'juegos');
+        const gamesSnapshot = await getDocs(gamesCollection);
 
-        const data = [
-          { id: 1, title: 'Super Mario Bros.', category: 'Plataforma', image: '/images/imagen1.jpg', price: 19.99 },
-          { id: 2, title: 'Doom', category: 'Acción', image: '/images/imagen2.jpg', price: 24.99 }
-        ];
+        const gamesData = gamesSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        setGames(gamesData);
 
-        setGames(data);
-        if (!selectedCategory) {
-          setFilteredGames(data);
-        } else {
-          const filtered = games.filter(game => game.category === selectedCategory);
-          setFilteredGames(filtered);
-        }
+        // Filtrar los juegos según la categoría seleccionada
+        const filtered = selectedCategory
+          ? gamesData.filter(game => game.category === selectedCategory)
+          : gamesData; 
+
+        setFilteredGames(filtered);
         setLoading(false);
       } catch (error) {
-        console.error('Error al cargar los juegos:', error);
+        console.error('Error al cargar los juegos desde Firestore:', error);
       }
     };
 
@@ -54,15 +54,17 @@ function ItemListContainer() {
 
         {loading && <p>Cargando juegos...</p>}
 
-        {!loading && ( 
+        {!loading && (
           <div>
             <select onChange={(e) => handleCategoryChange(e.target.value)}>
               <option value="">Todas las categorías</option>
-              <option value="Plataforma">Plataforma</option>
-              <option value="Acción">Acción</option>
+              {/* Opciones de categorías dinámicas */}
+              {[...new Set(games.map(game => game.category))].map(category => (
+                <option key={category} value={category}>{category}</option>
+              ))}
             </select>
 
-            <ItemList games={filteredGames} /> 
+            <ItemList games={filteredGames} />
           </div>
         )}
       </div>

@@ -7,10 +7,11 @@ import NavBar from './components/NavBar/NavBar';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import CartPage from './components/Cart/CartPage';
+import Checkout from './components/Checkout/Checkout'; // Asegúrate de importar Checkout
 import { CartProvider } from './context/CartContext';
 
 function App() {
-  React.createElement('div');
+  React.createElement('div'); 
 
   return (
     <Fragment>
@@ -24,6 +25,7 @@ function App() {
             <Route path="/contacto" element={<ContactForm />} />
             <Route path="/about" element={<About />} />
             <Route path="/carrito" element={<CartPage />} /> 
+            <Route path="/checkout" element={<Checkout />} /> {/* Nueva ruta para Checkout */}
           </Routes>
           <Outlet /> 
         </BrowserRouter>

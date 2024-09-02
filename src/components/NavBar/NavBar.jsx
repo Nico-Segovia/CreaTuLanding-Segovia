@@ -55,7 +55,7 @@ function NavBar() {
                     Contacto
                   </Link>
                   <Link to="/about" className="nav-link"> 
-                    Nosotros
+                    Sobre nosotros
                   </Link>
                 </Nav>
                 <Form className="d-flex">
