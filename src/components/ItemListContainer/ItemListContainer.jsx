@@ -28,7 +28,6 @@ function ItemListContainer() {
         const gamesData = gamesSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
         setGames(gamesData);
 
-        // Filtrar los juegos según la categoría seleccionada
         const filtered = selectedCategory
           ? gamesData.filter(game => game.category === selectedCategory)
           : gamesData; 
@@ -52,19 +51,18 @@ function ItemListContainer() {
       <div className="item-list-container">
         <h2>Catálogo de Juegos</h2>
 
-        {loading && <p>Cargando juegos...</p>}
+        {loading && <div className="spinner" aria-label="Cargando..."></div>} {/* Spinner con animación */}
 
-        {!loading && (
+        {!loading && ( 
           <div>
             <select onChange={(e) => handleCategoryChange(e.target.value)}>
               <option value="">Todas las categorías</option>
-              {/* Opciones de categorías dinámicas */}
               {[...new Set(games.map(game => game.category))].map(category => (
                 <option key={category} value={category}>{category}</option>
               ))}
             </select>
 
-            <ItemList games={filteredGames} />
+            <ItemList games={filteredGames.map(game => ({ ...game, show: true }))} /> 
           </div>
         )}
       </div>

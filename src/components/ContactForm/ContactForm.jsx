@@ -54,7 +54,7 @@ function ContactForm() {
   };
 
   return (
-    <Fragment>
+    <Fragment> 
       <form ref={form} onSubmit={handleSubmit} className="contact-form">
         <div>
           <label htmlFor="name">Nombre:</label>
@@ -72,12 +72,11 @@ function ContactForm() {
       </form>
 
       {formStatus === 'success' && (
-        <p className="success-message">¡Mensaje enviado con éxito! Gracias por contactarnos. Pronto recibirás noticias de BizarroSteam.</p>
+        <p className={`success-message ${formStatus === 'success' ? 'show' : ''}`}>¡Mensaje enviado con éxito! Gracias por contactarnos. Pronto recibirás noticias de BizarroSteam.</p>
       )}
       {formStatus === 'error' && (
-        <p className="error-message">Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.</p>
+        <p className={`error-message ${formStatus === 'error' ? 'show' : ''}`}>Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.</p>
       )}
-
     </Fragment>
   );
 }

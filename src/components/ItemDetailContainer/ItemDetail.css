@@ -2,7 +2,7 @@
   background-color: #333; 
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 20px auto;
+  margin: 20px auto; 
   padding: 30px;
   max-width: 600px; 
   text-align: center;
@@ -46,14 +46,15 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease; 
   font-weight: 500;
   margin-top: 10px;
-  margin-right: 10px; /* Espacio entre botones */
+  margin-right: 10px; 
 }
 
 .item-detail button:hover {
   background-color: #0056b3; 
+  transform: scale(1.05); 
 }
 
 .item-detail .item-count {

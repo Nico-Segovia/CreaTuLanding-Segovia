@@ -6,6 +6,7 @@
     padding: 20px;
     width: 250px; 
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
   }
   
   .item-card img {
@@ -24,19 +25,20 @@
     margin-bottom: 15px;
   }
   
-  .item-card a { 
+  .item-card a { /* Estilos para el enlace "Ver detalles" */
     display: inline-block;
-    background-color: #007bff; 
+    background-color: #007bff; /* Color de acento azul */
     color: white;
     padding: 8px 12px;
     border: none;
     border-radius: 5px;
     text-decoration: none;
     font-weight: 500;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave del color de fondo y la escala */
   }
   
   .item-card a:hover {
     background-color: #0056b3; 
+    transform: scale(1.05); /* Escalar ligeramente al pasar el mouse */
   }
   

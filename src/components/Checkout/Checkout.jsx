@@ -3,7 +3,7 @@ import React, { useContext, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom'
 import CartContext from '../../context/CartContext';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../../firebaseConfig';
+import { db } from '../../firebaseConfig';
 import './Checkout.css';
 
 function Checkout() {
@@ -14,7 +14,9 @@ function Checkout() {
     phone: '',
     address: ''
   });
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
+  const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (e) => {
     setBuyer({ ...buyer, [e.target.name]: e.target.value });
@@ -23,9 +25,29 @@ function Checkout() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!buyer.name || !buyer.email || !buyer.phone || !buyer.address) {
-      alert('Por favor, completa todos los campos obligatorios.');
-      return;
+    // Validación del formulario
+    const errors = {};
+    if (!buyer.name.trim()) {
+      errors.name = 'El nombre es obligatorio';
+    }
+    if (!buyer.email.trim()) {
+      errors.email = 'El email es obligatorio';
+    } else if (!/\S+@\S+\.\S+/.test(buyer.email)) {
+      errors.email = 'El email no es válido';
+    }
+    if (!buyer.phone.trim()) {
+      errors.phone = 'El teléfono es obligatorio';
+    } else if (!/^\d+$/.test(buyer.phone)) {
+      errors.phone = 'El teléfono solo debe contener números';
+    }
+    if (!buyer.address.trim()) {
+      errors.address = 'La dirección es obligatoria';
+    }
+
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      return; 
     }
 
     const order = {
@@ -56,25 +78,35 @@ function Checkout() {
           <div>
             <label htmlFor="name">Nombre:</label>
             <input type="text" id="name" name="name" value={buyer.name} onChange={handleChange} required />
+            {formErrors.name && <p className="error-message">{formErrors.name}</p>} 
           </div>
           <div>
             <label htmlFor="email">Email:</label>
             <input type="email" id="email" name="email" value={buyer.email} onChange={handleChange} required />
+            {formErrors.email && <p className="error-message">{formErrors.email}</p>} 
           </div>
           <div>
             <label htmlFor="phone">Teléfono:</label>
             <input type="tel" id="phone" name="phone" value={buyer.phone} onChange={handleChange} required />
+            {formErrors.phone && <p className="error-message">{formErrors.phone}</p>} 
           </div>
           <div>
             <label htmlFor="address">Dirección:</label>
             <input type="text" id="address" name="address" value={buyer.address} onChange={handleChange} required />
+            {formErrors.address && <p className="error-message">{formErrors.address}</p>} 
           </div>
 
           <h3>Resumen de la compra</h3>
           <ul>
             {cart.map(item => (
-              <li key={item.id}>
-                {item.title} x {item.quantity} - ${item.price * item.quantity}
+              <li key={item.id} className="cart-item-summary">
+                <img src={item.image} alt={item.title} />
+                <div>
+                  <h4>{item.title}</h4>
+                  <p>Precio unitario: ${item.price}</p>
+                  <p>Cantidad: {item.quantity}</p>
+                  <p>Subtotal: ${item.price * item.quantity}</p>
+                </div>
               </li>
             ))}
           </ul>

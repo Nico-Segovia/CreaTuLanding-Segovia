@@ -7,7 +7,7 @@ import DetailButton from '../DetailButton/DetailButton';
 function Item({ game }) {
   return (
     <Fragment>
-      <div className="item-card">
+      <div className={`item-card ${game.show ? 'show' : ''}`}> {/* Aplica la clase 'show' condicionalmente */}
         <img src={game.image} alt={game.title} />
         <h3>{game.title}</h3>
         <p>${game.price}</p>
@@ -22,7 +22,8 @@ Item.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired
+    price: PropTypes.number.isRequired,
+    show: PropTypes.bool 
   }).isRequired
 };
 

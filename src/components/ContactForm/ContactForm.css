@@ -2,18 +2,18 @@
   display: flex;
   flex-direction: column;
   max-width: 400px;
-  margin: 20px auto; 
+  margin: 20px auto;
   padding: 20px;
-  border-radius: 10px; 
-  background-color: #333; 
-  color: #fff; 
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  border-radius: 10px;
+  background-color: #333;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .contact-form label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 500; 
+  font-weight: 500;
 }
 
 .contact-form input,
@@ -21,26 +21,27 @@
   width: 100%;
   padding: 12px;
   margin-bottom: 16px;
-  border: 1px solid #555; 
+  border: 1px solid #555;
   border-radius: 5px;
   box-sizing: border-box;
-  background-color: #444; 
+  background-color: #444;
   color: #fff;
 }
 
 .contact-form button[type="submit"] {
-  background-color: #007bff; 
+  background-color: #007bff;
   color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   font-weight: 500;
 }
 
 .contact-form button[type="submit"]:hover {
   background-color: #0056b3; 
+  transform: scale(1.05); 
 }
 
 .success-message, .error-message {
@@ -48,6 +49,13 @@
   padding: 10px;
   border-radius: 5px;
   margin-top: 10px;
+  opacity: 0; /* Inicialmente ocultas */
+  transition: opacity 0.5s ease; 
+}
+
+.success-message.show,
+.error-message.show {
+  opacity: 1; 
 }
 
 .success-message {
